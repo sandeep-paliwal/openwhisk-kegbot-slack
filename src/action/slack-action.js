@@ -17,29 +17,36 @@ function main(params) {
                 );
             }
 
-            var url = params.slack_webhook_url;
-
-            var webhook = new IncomingWebhook(url);
-
-            var slack_message_text = 'Hello there from JS';
-
-            console.log(params);
-
-            if(params !== null && params.source !== null && params.source === "creative-cloud" && params.asset !== null )
+            if(params !== null && params.slack_webhook_url !== null)
             {
-                slack_message_text = 'Creative Cloud Event : ' + params.type + ' of type ' + params.asset.mime_type;
-            }
+                var url = params.slack_webhook_url;
 
-            webhook.send(slack_message_text,
-                function (err, res) {
-                    if (err) {
-                        console.log('Error:', err);
-                        reject(params);
-                    } else {
-                        console.log('Message sent: ', res);
-                        resolve(params);
-                    }
-                });
+                var webhook = new IncomingWebhook(url);
+
+                var slack_message_text = 'Hello there from JS';
+
+                console.log(params);
+
+                if(params !== null && params.source !== null && params.source === "creative-cloud" && params.asset !== null )
+                {
+                    slack_message_text = 'Creative Cloud Event : ' + params.type + ' of type ' + params.asset.mime_type;
+                }
+
+                webhook.send(slack_message_text,
+                    function (err, res) {
+                        if (err) {
+                            console.log('Error:', err);
+                            reject(params);
+                        } else {
+                            console.log('Message sent: ', res);
+                            resolve(params);
+                        }
+                    });
+            }
+            else
+            {
+                resolve({payload: params});
+            }
         }
     );
 }

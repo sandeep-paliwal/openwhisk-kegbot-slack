@@ -76446,7 +76446,7 @@ function extend() {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});/*
  * @returns {Promise}
  */function main(a){return new Promise(function(b,c){//send message to slack channel
-try{var d=require("@slack/client").IncomingWebhook}catch(h){console.log(h),c({message:"Could not load @slack/client",error:h.toString()})}var e=a.slack_webhook_url,f=new d(e),g="Hello there from JS";console.log(a),null!==a&&null!==a.source&&"creative-cloud"===a.source&&null!==a.asset&&(g="Creative Cloud Event : "+a.type+" of type "+a.asset.mime_type),f.send(g,function(h,i){h?(console.log("Error:",h),c(a)):(console.log("Message sent: ",i),b(a))})})}exports.default=main;
+try{var d=require("@slack/client").IncomingWebhook}catch(h){console.log(h),c({message:"Could not load @slack/client",error:h.toString()})}if(null!==a&&null!==a.slack_webhook_url){var e=a.slack_webhook_url,f=new d(e),g="Hello there from JS";console.log(a),null!==a&&null!==a.source&&"creative-cloud"===a.source&&null!==a.asset&&(g="Creative Cloud Event : "+a.type+" of type "+a.asset.mime_type),f.send(g,function(h,i){h?(console.log("Error:",h),c(a)):(console.log("Message sent: ",i),b(a))})}else b({payload:a})})}exports.default=main;
 
 },{"@slack/client":1}]},{},[]);
 var main = require('main-action').default;
